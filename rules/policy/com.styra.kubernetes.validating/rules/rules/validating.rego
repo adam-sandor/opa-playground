@@ -23,3 +23,16 @@ monitor[decision] {
     "message": message
   }
 }
+not_configured[decision] {
+  parameters :=   {
+    "prohibited_name_prefixes": set()
+  }
+
+  data.library.v1.kubernetes.admission.rbac.v1.deny_role_name_blacklist_prefix[message]
+    with data.library.parameters as parameters
+
+  decision := {
+    "allowed": false,
+    "message": message
+  }
+}
