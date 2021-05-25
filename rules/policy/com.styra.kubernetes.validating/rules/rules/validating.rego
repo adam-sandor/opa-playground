@@ -8,3 +8,19 @@ monitor[decision] {
     "message": message
   }
 }
+
+monitor[decision] {
+  parameters := {
+    "container_port_numbers": {
+      "1111"
+    }
+  }
+
+  data.library.v1.kubernetes.admission.network.v1.restricts_container_ports[message]
+    with data.library.parameters as parameters
+
+  decision := {
+    "allowed": false,
+    "message": message
+  }
+}
