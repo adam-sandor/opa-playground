@@ -9,6 +9,20 @@ monitor[decision] {
   }
 }
 
+not_configured[decision] {
+  parameters :=   {
+    "whitelist": set()
+  }
+
+  data.library.v1.kubernetes.admission.network.v1.deny_cluster_ip_not_in_whitelist[message]
+    with data.library.parameters as parameters
+
+  decision := {
+    "allowed": false,
+    "message": message
+  }
+}
+
 monitor[decision] {
   parameters := {
     "container_port_numbers": {
